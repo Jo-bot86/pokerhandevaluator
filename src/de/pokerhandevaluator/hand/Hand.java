@@ -53,9 +53,18 @@ public class Hand {
 		return highestCard;
 	}
 
+	/**
+	 * Checks if currentHand contains a full house.
+	 * 
+	 * @return true only if currentHand contains a full house, otherwise false
+	 */
 	public boolean containsFullHouse() {
-//		TODO
-
+		Card pairCard = containsNumberOfAKind(2);
+		Card threeOfAKindCard = containsNumberOfAKind(3);
+		if (pairCard != null && threeOfAKindCard != null && pairCard.getCardValue()
+				.compareTo(threeOfAKindCard.getCardValue()) != 0) {
+			return true;
+		}
 		return false;
 	}
 
@@ -80,16 +89,20 @@ public class Hand {
 	 * Checks if currentHand contains number of kind where number is passed as
 	 * parameter and can accept the values 2, 3 and 4. This method can be used for
 	 * checking if currentHand contains four, three or two of a kind. The method
-	 * returns the first card of 2, 3 or 4 as soon as the first number of kind are
-	 * found.
+	 * returns null if no number of kind is found
 	 * 
-	 * Note: For example, if you set number=2, the method will also return the card
-	 * if currentHand contains three or four of a kind. That is, it will return the
-	 * card if it finds at least number of one kind. The method returns null
-	 * if no number of kind is found
+	 * Example 1: If you call containsNumberOfAKind(2) for [ACE,THREE,ACE,ACE,TEN]
+	 * the method will return null. Only if the hand contains exactly two of a kind
+	 * it will return the first of that two cards. That is, for [ACE,THREE,ACE, TEN,
+	 * QUEEN] it returns the first ACE.
+	 * 
+	 * Example 2: If you call containsNumberOfAKind(2) for [ACE,THREE,ACE,TEN,TEN]
+	 * it will return the first TEN. That is, its returning the first card of the
+	 * last pair it founds.
 	 * 
 	 * @param number specifies the number of kind
-	 * @return the first card if currentHand contains number of kind, otherwise null
+	 * @return the first card of the last number of a kind if currentHand contains
+	 *         number of a kind, otherwise null
 	 */
 	public Card containsNumberOfAKind(int number) {
 		Card currCard;
@@ -99,10 +112,6 @@ public class Hand {
 			int numberOfSameKind = 1;
 			for (int j = i + 1; j < currentHand.size(); j++) {
 				tempCard = currentHand.get(j);
-				// unmittelbar nach Fund eines number of kind abbrechen
-				if (numberOfSameKind == number) {
-					return currCard;
-				}
 				if (currCard.getCardValue().compareTo(tempCard.getCardValue()) == 0) {
 					numberOfSameKind++;
 				}
