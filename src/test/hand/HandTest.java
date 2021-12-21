@@ -378,5 +378,34 @@ public class HandTest {
 		assertNull(card);
 	}
 	
-
+// 	*********************************************************************************************
+	
+	@Test
+	public void containsFullHouseTest_TwoAces_ThreeTens() {
+		hand = new Hand(new Card(SPADES, KING), new Card(DIAMONDS, TEN),
+				new Card(CLUBS, TEN), new Card(HEARTS, KING), new Card(HEARTS, TEN));
+		assertEquals(true, hand.containsFullHouse());
+	}
+	
+	@Test
+	public void containsFullHouseTest_TwoFours_ThreeTwos() {
+		hand = new Hand(new Card(SPADES, TWO), new Card(DIAMONDS, FOUR),
+				new Card(CLUBS, FOUR), new Card(HEARTS, TWO), new Card(CLUBS, TWO));
+		assertEquals(true, hand.containsFullHouse());
+	}
+	
+	@Test
+	public void containsFullHouseTest_ThreeQueens() {
+		hand = new Hand(new Card(SPADES, TWO), new Card(DIAMONDS, QUEEN),
+				new Card(CLUBS, QUEEN), new Card(HEARTS, KING), new Card(HEARTS, QUEEN));
+		assertEquals(false, hand.containsFullHouse());
+	}
+	
+	@Test
+	public void containsFullHouseTest_TwoJacks_TwoNines() {
+		hand = new Hand(new Card(SPADES, JACK), new Card(DIAMONDS, NINE),
+				new Card(CLUBS, NINE), new Card(HEARTS, JACK), new Card(CLUBS, TWO));
+		assertEquals(false, hand.containsFullHouse());
+	}
+	
 }
