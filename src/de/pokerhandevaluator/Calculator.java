@@ -1,5 +1,6 @@
 package de.pokerhandevaluator;
 
+import static de.pokerhandevaluator.hand.HandRanking.*;
 import static de.pokerhandevaluator.hand.card.CardValue.*;
 
 import java.util.List;
@@ -35,6 +36,50 @@ public class Calculator {
 	public Calculator(Hand hand1, Hand hand2) {
 		this.hand1 = hand1;
 		this.hand2 = hand2;
+	}
+	
+	/**
+	 * Sets the ranking for a given Hand object
+	 * @param hand
+	 */
+	public void setHandRanking(Hand hand) {
+		if(hand.getHighestCard().getCardValue().compareTo(ACE) == 0 && hand.containsFlush() && hand.containsStraight()) {
+			hand.setCurrentHandRanking(ROYAL_FLUSH);
+			return;
+		}
+		if(hand.containsFlush() && hand.containsStraight()) {
+			hand.setCurrentHandRanking(STRAIGHT_FLUSH);
+			return;
+		}
+		if(hand.containsNumberOfAKind(4) != null) {
+			hand.setCurrentHandRanking(FOUR_OF_A_KIND);
+			return;
+		}
+		if(hand.containsFullHouse()) {
+			hand.setCurrentHandRanking(FULL_HOUSE);
+			return;
+		}
+		if(hand.containsFlush()) {
+			hand.setCurrentHandRanking(FLUSH);
+			return;
+		}
+		if(hand.containsStraight()) {
+			hand.setCurrentHandRanking(STRAIGHT);
+			return;
+		}
+		if(hand.containsNumberOfAKind(3) != null) {
+			hand.setCurrentHandRanking(THREE_OF_A_KIND);
+			return;
+		}
+		if(hand.containsTwoPair()) {
+			hand.setCurrentHandRanking(TWO_PAIR);
+			return;
+		}
+		if(hand.containsNumberOfAKind(2) != null) {
+			hand.setCurrentHandRanking(ONE_PAIR);
+			return;
+		}
+		hand.setCurrentHandRanking(HIGH_CARD);
 	}
 	
 	public Hand getHand1() {
