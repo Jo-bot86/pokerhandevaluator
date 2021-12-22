@@ -2,6 +2,7 @@ package test.hand;
 
 import static de.pokerhandevaluator.hand.card.CardSuit.*;
 import static de.pokerhandevaluator.hand.card.CardValue.*;
+import static de.pokerhandevaluator.hand.HandRanking.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -446,4 +447,75 @@ public class HandTest {
 		assertEquals(0, potPairs.size());	
 	}
 
+//	*****************************************************************************************
+	
+	@Test
+	public void setHandRankingTest_RoyalFlush_Spades() {
+		hand = new Hand(new Card(SPADES, JACK), new Card(SPADES, ACE),
+				new Card(SPADES, QUEEN), new Card(SPADES, TEN), new Card(SPADES, KING));
+		assertEquals(ROYAL_FLUSH, hand.getCurrentHandRanking());
+	}
+	
+	@Test
+	public void setHandRankingTest_StraightFlush_ThreeToSeven_Hearts() {
+		hand = new Hand(new Card(HEARTS, THREE), new Card(HEARTS, SEVEN),
+				new Card(HEARTS, FIVE), new Card(HEARTS, SIX), new Card(HEARTS, FOUR));
+		assertEquals(STRAIGHT_FLUSH, hand.getCurrentHandRanking());
+	}
+	
+	@Test
+	public void setHandRankingTest_FourOfAKind_Three() {
+		hand = new Hand(new Card(DIAMONDS, THREE), new Card(HEARTS, THREE),
+				new Card(HEARTS, FIVE), new Card(CLUBS, THREE), new Card(SPADES, THREE));
+		assertEquals(FOUR_OF_A_KIND, hand.getCurrentHandRanking());
+	}
+	
+	@Test
+	public void setHandRankingTest_FullHouse_FoursAndJacks() {
+		hand = new Hand(new Card(DIAMONDS, JACK), new Card(HEARTS, FOUR),
+				new Card(SPADES, FOUR), new Card(CLUBS, JACK), new Card(SPADES, JACK));
+		assertEquals(FULL_HOUSE, hand.getCurrentHandRanking());
+	}
+	
+	@Test
+	public void setHandRankingTest_Flush_HEARTS() {
+		hand = new Hand(new Card(HEARTS, KING), new Card(HEARTS, SEVEN),
+				new Card(HEARTS, FIVE), new Card(HEARTS, TWO), new Card(HEARTS, ACE));
+		assertEquals(FLUSH, hand.getCurrentHandRanking());
+	}
+	
+	@Test
+	public void setHandRankingTest_Straight_NineToKing() {
+		hand = new Hand(new Card(DIAMONDS, QUEEN), new Card(HEARTS, TEN),
+				new Card(HEARTS, KING), new Card(DIAMONDS, JACK), new Card(SPADES, NINE));
+		assertEquals(STRAIGHT, hand.getCurrentHandRanking());
+	}
+	
+	@Test
+	public void setHandRankingTest_ThreeOfAKind_Queens() {
+		hand = new Hand(new Card(DIAMONDS, QUEEN), new Card(HEARTS, QUEEN),
+				new Card(HEARTS, KING), new Card(DIAMONDS, JACK), new Card(SPADES, QUEEN));
+		assertEquals(THREE_OF_A_KIND, hand.getCurrentHandRanking());
+	}
+	
+	@Test
+	public void setHandRankingTest_TwoPairs_KingsAndAces() {
+		hand = new Hand(new Card(DIAMONDS, ACE), new Card(HEARTS, TWO),
+				new Card(HEARTS, KING), new Card(DIAMONDS, KING), new Card(SPADES, ACE));
+		assertEquals(TWO_PAIR, hand.getCurrentHandRanking());
+	}
+	
+	@Test
+	public void setHandRankingTest_Pair_Queens() {
+		hand = new Hand(new Card(SPADES, QUEEN), new Card(HEARTS, TWO),
+				new Card(DIAMONDS, FOUR), new Card(DIAMONDS, QUEEN), new Card(SPADES, ACE));
+		assertEquals(PAIR, hand.getCurrentHandRanking());
+	}
+	
+	public void setHandRankingTest_HighCard_Ten() {
+		hand = new Hand(new Card(SPADES, FOUR), new Card(HEARTS, TWO),
+				new Card(DIAMONDS, THREE), new Card(DIAMONDS, TEN), new Card(SPADES, NINE));
+		assertEquals(HIGH_CARD, hand.getCurrentHandRanking());
+	}
+	
 }

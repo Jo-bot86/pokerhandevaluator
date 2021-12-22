@@ -1,5 +1,8 @@
 package de.pokerhandevaluator.hand;
 
+import static de.pokerhandevaluator.hand.HandRanking.*;
+import static de.pokerhandevaluator.hand.card.CardValue.ACE;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +32,7 @@ public class Hand {
 	 */
 	public Hand(Card card1, Card card2, Card card3, Card card4, Card card5) {
 		currentHand = List.of(card1, card2, card3, card4, card5);
+		setHandRanking();
 	}
 
 	/**
@@ -101,7 +105,7 @@ public class Hand {
 	}
 
 	/**
-	 * This methods determines if a currentHand contains three or four of a kind
+	 * This method determines if a currentHand contains three or four of a kind
 	 * depending on the passed numberOfAKind parameter. If it founds three or four
 	 * of a kind it returns the first card of the find.
 	 * 
@@ -181,6 +185,50 @@ public class Hand {
 		}
 
 		return pairCards;
+	}
+	
+	/**
+	 * Sets the ranking for a t
+	 * @param hand
+	 */
+	public void setHandRanking() {
+		if(getHighestCard().getCardValue().compareTo(ACE) == 0 && containsFlush() && containsStraight()) {
+			currentHandRanking = ROYAL_FLUSH;
+			return;
+		}
+		if(containsFlush() && containsStraight()) {
+			currentHandRanking = STRAIGHT_FLUSH;
+			return;
+		}
+		if(containsThreeOrFourOfAKind(4) != null) {
+			currentHandRanking = FOUR_OF_A_KIND;
+			return;
+		}
+		if(containsFullHouse()) {
+			currentHandRanking = FULL_HOUSE;
+			return;
+		}
+		if(containsFlush()) {
+			currentHandRanking = FLUSH;
+			return;
+		}
+		if(containsStraight()) {
+			currentHandRanking = STRAIGHT;
+			return;
+		}
+		if(containsThreeOrFourOfAKind(3) != null) {
+			currentHandRanking = THREE_OF_A_KIND;
+			return;
+		}
+		if(containsPair().size() == 2) {
+			currentHandRanking = TWO_PAIR;
+			return;
+		}
+		if(containsPair().size() == 1) {
+			currentHandRanking = PAIR;
+			return;
+		}
+		currentHandRanking = HIGH_CARD;
 	}
 
 }
