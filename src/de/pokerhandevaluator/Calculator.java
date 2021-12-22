@@ -51,7 +51,7 @@ public class Calculator {
 			hand.setCurrentHandRanking(STRAIGHT_FLUSH);
 			return;
 		}
-		if(hand.containsNumberOfAKind(4) != null) {
+		if(hand.containsThreeOrFourOfAKind(4) != null) {
 			hand.setCurrentHandRanking(FOUR_OF_A_KIND);
 			return;
 		}
@@ -67,15 +67,15 @@ public class Calculator {
 			hand.setCurrentHandRanking(STRAIGHT);
 			return;
 		}
-		if(hand.containsNumberOfAKind(3) != null) {
+		if(hand.containsThreeOrFourOfAKind(3) != null) {
 			hand.setCurrentHandRanking(THREE_OF_A_KIND);
 			return;
 		}
-		if(hand.containsTwoPair()) {
+		if(hand.containsPair().size() == 2) {
 			hand.setCurrentHandRanking(TWO_PAIR);
 			return;
 		}
-		if(hand.containsNumberOfAKind(2) != null) {
+		if(hand.containsPair().size() == 1) {
 			hand.setCurrentHandRanking(ONE_PAIR);
 			return;
 		}
