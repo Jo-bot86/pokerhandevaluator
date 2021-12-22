@@ -26,9 +26,9 @@ public class Calculator {
 	 * Contains the other one of the poker hands
 	 */
 	private Hand hand2;
-	
+
 	public Calculator() {
-		
+
 	}
 
 	/**
@@ -41,7 +41,23 @@ public class Calculator {
 		this.hand1 = hand1;
 		this.hand2 = hand2;
 	}
-	
+
+	public void calculate() {
+		if (hand1.getCurrentHandRanking().compareTo(hand2.getCurrentHandRanking()) < 0) {
+			System.out.println("Hand 2 wins with " + hand2.getCurrentHandRanking());
+		} else if (hand1.getCurrentHandRanking()
+				.compareTo(hand2.getCurrentHandRanking()) > 0) {
+			System.out.println("Hand 1 wins with " + hand1.getCurrentHandRanking());
+		} else {
+			compareHands();
+		}
+	}
+
+	private void compareHands() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public Hand getHand1() {
 		return hand1;
 	}
