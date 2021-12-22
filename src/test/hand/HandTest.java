@@ -2,11 +2,13 @@ package test.hand;
 
 import static de.pokerhandevaluator.hand.card.CardSuit.*;
 import static de.pokerhandevaluator.hand.card.CardValue.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.Test;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import de.pokerhandevaluator.hand.Hand;
 import de.pokerhandevaluator.hand.card.Card;
@@ -128,284 +130,320 @@ public class HandTest {
 //  Contains four of a kind test
 
 	@Test
-	public void containsNumberOfAKindTest_Four_Kings_FirstFour() {
+	public void containsThreeOrFourOfAKindTest_Four_Kings_FirstFour() {
 		hand = new Hand(new Card(HEARTS, KING), new Card(CLUBS, KING),
 				new Card(SPADES, KING), new Card(DIAMONDS, KING), new Card(HEARTS, JACK));
-		Card card = hand.containsNumberOfAKind(4);
+		Card card = hand.containsThreeOrFourOfAKind(4);
 		assertNotNull(card);
 		assertEquals(HEARTS, card.getCardSuit());
 		assertEquals(KING, card.getCardValue());
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Four_Kings_FirstThreeAndLast() {
+	public void containsThreeOrFourOfAKindTest_Four_Kings_FirstThreeAndLast() {
 		hand = new Hand(new Card(CLUBS, KING), new Card(HEARTS, KING),
 				new Card(SPADES, KING), new Card(HEARTS, JACK), new Card(DIAMONDS, KING));
-		Card card = hand.containsNumberOfAKind(4);
+		Card card = hand.containsThreeOrFourOfAKind(4);
 		assertNotNull(card);
 		assertEquals(CLUBS, card.getCardSuit());
 		assertEquals(KING, card.getCardValue());
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Four_Kings_FirstTwoAndLastTwo() {
+	public void containsThreeOrFourOfAKindTest_Four_Kings_FirstTwoAndLastTwo() {
 		hand = new Hand(new Card(HEARTS, KING), new Card(CLUBS, KING),
 				new Card(HEARTS, JACK), new Card(SPADES, KING), new Card(DIAMONDS, KING));
-		Card card = hand.containsNumberOfAKind(4);
+		Card card = hand.containsThreeOrFourOfAKind(4);
 		assertNotNull(card);
 		assertEquals(HEARTS, card.getCardSuit());
 		assertEquals(KING, card.getCardValue());
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Four_Kings_FirstAndLastThree() {
+	public void containsThreeOrFourOfAKindTest_Four_Kings_FirstAndLastThree() {
 		hand = new Hand(new Card(HEARTS, KING), new Card(HEARTS, JACK),
 				new Card(CLUBS, KING), new Card(SPADES, KING), new Card(DIAMONDS, KING));
-		Card card = hand.containsNumberOfAKind(4);
+		Card card = hand.containsThreeOrFourOfAKind(4);
 		assertNotNull(card);
 		assertEquals(HEARTS, card.getCardSuit());
 		assertEquals(KING, card.getCardValue());
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Four_Kings_LastFour() {
+	public void containsThreeOrFourOfAKindTest_Four_Kings_LastFour() {
 		hand = new Hand(new Card(HEARTS, JACK), new Card(HEARTS, KING),
 				new Card(CLUBS, KING), new Card(SPADES, KING), new Card(DIAMONDS, KING));
-		Card card = hand.containsNumberOfAKind(4);
+		Card card = hand.containsThreeOrFourOfAKind(4);
 		assertNotNull(card);
 		assertEquals(HEARTS, card.getCardSuit());
 		assertEquals(KING, card.getCardValue());
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Three_Kings_InsteadOfFour() {
+	public void containsThreeOrFourOfAKindTest_Three_Kings_InsteadOfFour() {
 		hand = new Hand(new Card(HEARTS, TWO), new Card(CLUBS, KING),
 				new Card(HEARTS, JACK), new Card(SPADES, KING), new Card(DIAMONDS, KING));
-		Card card = hand.containsNumberOfAKind(4);
-		assertNull(card);		
+		Card card = hand.containsThreeOrFourOfAKind(4);
+		assertNull(card);
 	}
 
 //	*******************************************************************************************
 //  Contains three of a kind test
 
 	@Test
-	public void containsNumberOfAKindTest_Three_Kings_FirstThree() {
+	public void containsThreeOrFourOfAKindTest_Three_Kings_FirstThree() {
 		hand = new Hand(new Card(HEARTS, KING), new Card(CLUBS, KING),
 				new Card(SPADES, KING), new Card(DIAMONDS, QUEEN),
 				new Card(HEARTS, JACK));
-		Card card = hand.containsNumberOfAKind(3);
+		Card card = hand.containsThreeOrFourOfAKind(3);
 		assertNotNull(card);
 		assertEquals(HEARTS, card.getCardSuit());
 		assertEquals(KING, card.getCardValue());
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Three_Kings_FirstTwoAndFourth() {
+	public void containsThreeOrFourOfAKindTest_Three_Kings_FirstTwoAndFourth() {
 		hand = new Hand(new Card(HEARTS, KING), new Card(SPADES, KING),
 				new Card(DIAMONDS, QUEEN), new Card(CLUBS, KING), new Card(HEARTS, JACK));
-		Card card = hand.containsNumberOfAKind(3);
+		Card card = hand.containsThreeOrFourOfAKind(3);
 		assertNotNull(card);
 		assertEquals(HEARTS, card.getCardSuit());
 		assertEquals(KING, card.getCardValue());
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Three_Kings_FirstTwoAndFifth() {
+	public void containsThreeOrFourOfAKindTest_Three_Kings_FirstTwoAndFifth() {
 		hand = new Hand(new Card(HEARTS, KING), new Card(SPADES, KING),
 				new Card(DIAMONDS, QUEEN), new Card(HEARTS, JACK), new Card(CLUBS, KING));
-		Card card = hand.containsNumberOfAKind(3);
+		Card card = hand.containsThreeOrFourOfAKind(3);
 		assertNotNull(card);
 		assertEquals(HEARTS, card.getCardSuit());
 		assertEquals(KING, card.getCardValue());
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Three_Kings_FirstThirdAndFifth() {
+	public void containsThreeOrFourOfAKindTest_Three_Kings_FirstThirdAndFifth() {
 		hand = new Hand(new Card(HEARTS, KING), new Card(DIAMONDS, QUEEN),
 				new Card(SPADES, KING), new Card(HEARTS, JACK), new Card(CLUBS, KING));
-		Card card = hand.containsNumberOfAKind(3);
+		Card card = hand.containsThreeOrFourOfAKind(3);
 		assertNotNull(card);
 		assertEquals(HEARTS, card.getCardSuit());
 		assertEquals(KING, card.getCardValue());
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Three_Kings_FirstAndLastTwo() {
+	public void containsThreeOrFourOfAKindTest_Three_Kings_FirstAndLastTwo() {
 		hand = new Hand(new Card(HEARTS, KING), new Card(DIAMONDS, QUEEN),
 				new Card(HEARTS, JACK), new Card(SPADES, KING), new Card(CLUBS, KING));
-		Card card = hand.containsNumberOfAKind(3);
+		Card card = hand.containsThreeOrFourOfAKind(3);
 		assertNotNull(card);
 		assertEquals(HEARTS, card.getCardSuit());
 		assertEquals(KING, card.getCardValue());
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Three_Kings_SecondAndLastTwo() {
+	public void containsThreeOrFourOfAKindTest_Three_Kings_SecondAndLastTwo() {
 		hand = new Hand(new Card(DIAMONDS, QUEEN), new Card(HEARTS, KING),
 				new Card(HEARTS, JACK), new Card(SPADES, KING), new Card(CLUBS, KING));
-		Card card = hand.containsNumberOfAKind(3);
+		Card card = hand.containsThreeOrFourOfAKind(3);
 		assertNotNull(card);
 		assertEquals(HEARTS, card.getCardSuit());
 		assertEquals(KING, card.getCardValue());
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Three_Kings_LastThree() {
+	public void containsThreeOrFourOfAKindTest_Three_Kings_LastThree() {
 		hand = new Hand(new Card(DIAMONDS, QUEEN), new Card(HEARTS, JACK),
 				new Card(HEARTS, KING), new Card(SPADES, KING), new Card(CLUBS, KING));
-		Card card = hand.containsNumberOfAKind(3);
+		Card card = hand.containsThreeOrFourOfAKind(3);
 		assertNotNull(card);
 		assertEquals(HEARTS, card.getCardSuit());
 		assertEquals(KING, card.getCardValue());
 	}
-	
+
 	@Test
-	public void containsNumberOfAKindTest_Two_Kings_InsteadOfThree() {
+	public void containsThreeOrFourOfAKindTest_Two_Kings_InsteadOfThree() {
 		hand = new Hand(new Card(DIAMONDS, QUEEN), new Card(HEARTS, JACK),
 				new Card(HEARTS, QUEEN), new Card(SPADES, KING), new Card(CLUBS, KING));
-		Card card = hand.containsNumberOfAKind(3);
+		Card card = hand.containsThreeOrFourOfAKind(3);
 		assertNull(card);
 	}
 
 //	*****************************************************************************************
-//  Contains two of a kind test
+//  Single Pair test
 
 	@Test
-	public void containsNumberOfAKindTest_Two_Kings_FirstTwo() {
+	public void containsPairTest_Two_Kings_FirstTwo() {
 		hand = new Hand(new Card(HEARTS, KING), new Card(CLUBS, KING),
 				new Card(SPADES, QUEEN), new Card(DIAMONDS, TEN), new Card(HEARTS, JACK));
-		Card card = hand.containsNumberOfAKind(2);
-		assertNotNull(card);
-		assertEquals(HEARTS, card.getCardSuit());
-		assertEquals(KING, card.getCardValue());
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(1, potPairs.size());
+		assertEquals(KING, potPairs.get(0).getCardValue());	
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Two_Kings_FirstAndThird() {
+	public void containsPairTest_Two_Kings_FirstAndThird() {
 		hand = new Hand(new Card(HEARTS, KING), new Card(SPADES, QUEEN),
 				new Card(CLUBS, KING), new Card(DIAMONDS, TEN), new Card(HEARTS, JACK));
-		Card card = hand.containsNumberOfAKind(2);
-		assertNotNull(card);
-		assertEquals(HEARTS, card.getCardSuit());
-		assertEquals(KING, card.getCardValue());
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(1, potPairs.size());
+		assertEquals(KING, potPairs.get(0).getCardValue());	
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Two_Kings_FirstAndFourth() {
+	public void containsPairTest_Two_Kings_FirstAndFourth() {
 		hand = new Hand(new Card(HEARTS, KING), new Card(SPADES, QUEEN),
-				new Card(DIAMONDS, QUEEN), new Card(CLUBS, KING), new Card(HEARTS, JACK));
-		Card card = hand.containsNumberOfAKind(2);
-		assertNotNull(card);
-		assertEquals(HEARTS, card.getCardSuit());
-		assertEquals(KING, card.getCardValue());
+				new Card(DIAMONDS, QUEEN), new Card(CLUBS, KING), new Card(HEARTS, QUEEN));
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(1, potPairs.size());
+		assertEquals(KING, potPairs.get(0).getCardValue());	
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Two_Kings_FirstAndLast() {
+	public void containsPairTest_Two_Kings_FirstAndLast() {
 		hand = new Hand(new Card(HEARTS, KING), new Card(SPADES, QUEEN),
 				new Card(DIAMONDS, TEN), new Card(HEARTS, JACK), new Card(CLUBS, KING));
-		Card card = hand.containsNumberOfAKind(2);
-		assertNotNull(card);
-		assertEquals(HEARTS, card.getCardSuit());
-		assertEquals(KING, card.getCardValue());
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(1, potPairs.size());
+		assertEquals(KING, potPairs.get(0).getCardValue());	
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Two_Kings_SecondAndLast() {
+	public void containsPairTest_Two_Kings_SecondAndLast() {
 		hand = new Hand(new Card(SPADES, QUEEN), new Card(HEARTS, KING),
 				new Card(DIAMONDS, TEN), new Card(HEARTS, JACK), new Card(CLUBS, KING));
-		Card card = hand.containsNumberOfAKind(2);
-		assertNotNull(card);
-		assertEquals(HEARTS, card.getCardSuit());
-		assertEquals(KING, card.getCardValue());
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(1, potPairs.size());
+		assertEquals(KING, potPairs.get(0).getCardValue());	
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Two_Kings_ThirdAndLast() {
+	public void containsPairTest_Two_Kings_ThirdAndLast() {
 		hand = new Hand(new Card(SPADES, QUEEN), new Card(DIAMONDS, TEN),
 				new Card(HEARTS, KING), new Card(HEARTS, JACK), new Card(CLUBS, KING));
-		Card card = hand.containsNumberOfAKind(2);
-		assertNotNull(card);
-		assertEquals(HEARTS, card.getCardSuit());
-		assertEquals(KING, card.getCardValue());
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(1, potPairs.size());
+		assertEquals(KING, potPairs.get(0).getCardValue());	
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Two_Kings_FourthAndLast() {
+	public void containsPairTest_Two_Kings_FourthAndLast() {
 		hand = new Hand(new Card(SPADES, QUEEN), new Card(DIAMONDS, TEN),
 				new Card(HEARTS, JACK), new Card(HEARTS, KING), new Card(CLUBS, KING));
-		Card card = hand.containsNumberOfAKind(2);
-		assertNotNull(card);
-		assertEquals(HEARTS, card.getCardSuit());
-		assertEquals(KING, card.getCardValue());
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(1, potPairs.size());
+		assertEquals(KING, potPairs.get(0).getCardValue());	
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Two_Kings_SecondAndThird() {
+	public void containsPairTest_Two_Kings_SecondAndThird() {
 		hand = new Hand(new Card(SPADES, QUEEN), new Card(HEARTS, KING),
 				new Card(CLUBS, KING), new Card(DIAMONDS, TEN), new Card(HEARTS, JACK));
-		Card card = hand.containsNumberOfAKind(2);
-		assertNotNull(card);
-		assertEquals(HEARTS, card.getCardSuit());
-		assertEquals(KING, card.getCardValue());
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(1, potPairs.size());
+		assertEquals(KING, potPairs.get(0).getCardValue());	
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Two_Kings_SecondAndFourth() {
+	public void containsPairTest_Two_Kings_SecondAndFourth() {
 		hand = new Hand(new Card(SPADES, QUEEN), new Card(HEARTS, KING),
 				new Card(DIAMONDS, TEN), new Card(CLUBS, KING), new Card(HEARTS, JACK));
-		Card card = hand.containsNumberOfAKind(2);
-		assertNotNull(card);
-		assertEquals(HEARTS, card.getCardSuit());
-		assertEquals(KING, card.getCardValue());
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(1, potPairs.size());
+		assertEquals(KING, potPairs.get(0).getCardValue());	
 	}
 
 	@Test
-	public void containsNumberOfAKindTest_Two_Kings_ThirdAndFourth() {
+	public void containsPairTest_Two_Kings_ThirdAndFourth() {
 		hand = new Hand(new Card(SPADES, QUEEN), new Card(DIAMONDS, TEN),
 				new Card(CLUBS, KING), new Card(HEARTS, KING), new Card(HEARTS, JACK));
-		Card card = hand.containsNumberOfAKind(2);
-		assertNotNull(card);
-		assertEquals(CLUBS, card.getCardSuit());
-		assertEquals(KING, card.getCardValue());
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(1, potPairs.size());
+		assertEquals(KING, potPairs.get(0).getCardValue());	
 	}
-	
+
 	@Test
-	public void containsNumberOfAKindTest_Two_Kings_NoPair() {
+	public void containsPairTest_Two_Kings_NoPair() {
 		hand = new Hand(new Card(SPADES, QUEEN), new Card(DIAMONDS, TEN),
 				new Card(CLUBS, KING), new Card(HEARTS, FOUR), new Card(HEARTS, JACK));
-		Card card = hand.containsNumberOfAKind(2);
-		assertNull(card);
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(0, potPairs.size());
 	}
-	
+
 // 	*********************************************************************************************
-	
+
 	@Test
 	public void containsFullHouseTest_TwoAces_ThreeTens() {
 		hand = new Hand(new Card(SPADES, KING), new Card(DIAMONDS, TEN),
 				new Card(CLUBS, TEN), new Card(HEARTS, KING), new Card(HEARTS, TEN));
 		assertEquals(true, hand.containsFullHouse());
 	}
-	
+
 	@Test
 	public void containsFullHouseTest_TwoFours_ThreeTwos() {
 		hand = new Hand(new Card(SPADES, TWO), new Card(DIAMONDS, FOUR),
 				new Card(CLUBS, FOUR), new Card(HEARTS, TWO), new Card(CLUBS, TWO));
 		assertEquals(true, hand.containsFullHouse());
 	}
-	
+
 	@Test
 	public void containsFullHouseTest_ThreeQueens() {
 		hand = new Hand(new Card(SPADES, TWO), new Card(DIAMONDS, QUEEN),
 				new Card(CLUBS, QUEEN), new Card(HEARTS, KING), new Card(HEARTS, QUEEN));
 		assertEquals(false, hand.containsFullHouse());
 	}
-	
+
 	@Test
 	public void containsFullHouseTest_TwoJacks_TwoNines() {
 		hand = new Hand(new Card(SPADES, JACK), new Card(DIAMONDS, NINE),
 				new Card(CLUBS, NINE), new Card(HEARTS, JACK), new Card(CLUBS, TWO));
 		assertEquals(false, hand.containsFullHouse());
 	}
+
+//	************************************************************************************************
+//  Two Pairs test
 	
+	@Test
+	public void containsPairTest_PairOfTwoAndPairOfThree() {
+		hand = new Hand(new Card(SPADES, TWO), new Card(DIAMONDS, THREE),
+				new Card(CLUBS, NINE), new Card(HEARTS, TWO), new Card(CLUBS, THREE));
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(2, potPairs.size());
+		assertEquals(TWO, potPairs.get(0).getCardValue());
+		assertEquals(THREE, potPairs.get(1).getCardValue());
+	}
+
+	@Test
+	public void containsPairTest_FourOfAKindAces() {
+		hand = new Hand(new Card(SPADES, ACE), new Card(DIAMONDS, ACE),
+				new Card(CLUBS, NINE), new Card(HEARTS, ACE), new Card(CLUBS, ACE));
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(0, potPairs.size());
+	}
+	
+	@Test
+	public void containsPairTest_FullHouseKingsAndTens() {
+		hand = new Hand(new Card(SPADES, KING), new Card(DIAMONDS, TEN),
+				new Card(CLUBS, TEN), new Card(HEARTS, KING), new Card(SPADES, TEN));
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(1, potPairs.size());
+	}
+	
+	@Test
+	public void containsPairTest_OnePairOfFours() {
+		hand = new Hand(new Card(SPADES, KING), new Card(DIAMONDS, TEN),
+				new Card(CLUBS, FOUR), new Card(HEARTS, FIVE), new Card(SPADES, FOUR));
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(1, potPairs.size());
+		assertEquals(FOUR, potPairs.get(0).getCardValue());		
+	}
+	
+	@Test
+	public void containsPairTest_NoPairs() {
+		hand = new Hand(new Card(SPADES, KING), new Card(DIAMONDS, TEN),
+				new Card(CLUBS, FOUR), new Card(HEARTS, FIVE), new Card(SPADES, THREE));
+		List<Card> potPairs = hand.containsPair();
+		assertEquals(0, potPairs.size());	
+	}
+
 }
