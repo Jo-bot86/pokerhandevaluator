@@ -1,14 +1,12 @@
 package de.pokerhandevaluator.hand;
 
-import static de.pokerhandevaluator.hand.card.CardValue.*;
-import static de.pokerhandevaluator.hand.HandRanking.*;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import de.pokerhandevaluator.hand.card.Card;
+import de.pokerhandevaluator.hand.card.CardValue;
 
 /**
  * Represents a hand in a poker game.
@@ -20,18 +18,38 @@ public class Hand {
 	private final List<Card> currentHand;
 	private HandRanking currentHandRanking;
 
+	/**
+	 * Creates an immutable Hand object with 5 Card objects
+	 * 
+	 * @param card1 card 1 of the hand
+	 * @param card2 card 2 of the hand
+	 * @param card3 card 3 of the hand
+	 * @param card4 card 4 of the hand
+	 * @param card5 card 5 of the hand
+	 */
 	public Hand(Card card1, Card card2, Card card3, Card card4, Card card5) {
 		currentHand = List.of(card1, card2, card3, card4, card5);
 	}
 
+	/**
+	 * @return the currentHand
+	 */
 	public List<Card> getCurrentHand() {
 		return currentHand;
 	}
 
+	/**
+	 * @return the currentHandRanking
+	 */
 	public HandRanking getCurrentHandRanking() {
 		return currentHandRanking;
 	}
 
+	/**
+	 * Sets the currentHandRanking
+	 * 
+	 * @param ranking The rating for a Hand Object
+	 */
 	public void setCurrentHandRanking(HandRanking ranking) {
 		currentHandRanking = ranking;
 	}
@@ -59,10 +77,7 @@ public class Hand {
 	 * @return true only if currentHand contains a full house, otherwise false
 	 */
 	public boolean containsFullHouse() {
-		Card pairCard = containsNumberOfAKind(2);
-		Card threeOfAKindCard = containsNumberOfAKind(3);
-		if (pairCard != null && threeOfAKindCard != null && pairCard.getCardValue()
-				.compareTo(threeOfAKindCard.getCardValue()) != 0) {
+		if (containsPair().size() == 1 && containsThreeOrFourOfAKind(3) != null) {
 			return true;
 		}
 		return false;
@@ -86,38 +101,30 @@ public class Hand {
 	}
 
 	/**
-	 * Checks if currentHand contains number of kind where number is passed as
-	 * parameter and can accept the values 2, 3 and 4. This method can be used for
-	 * checking if currentHand contains four, three or two of a kind. The method
-	 * returns null if no number of kind is found
+	 * This methods determines if a currentHand contains three or four of a kind
+	 * depending on the passed numberOfAKind parameter. If it founds three or four
+	 * of a kind it returns the first card of the find.
 	 * 
-	 * Example 1: If you call containsNumberOfAKind(2) for [ACE,THREE,ACE,ACE,TEN]
-	 * the method will return null. Only if the hand contains exactly two of a kind
-	 * it will return the first of that two cards. That is, for [ACE,THREE,ACE, TEN,
-	 * QUEEN] it returns the first ACE.
-	 * 
-	 * Example 2: If you call containsNumberOfAKind(2) for [ACE,THREE,ACE,TEN,TEN]
-	 * it will return the first TEN. That is, its returning the first card of the
-	 * last pair it founds.
-	 * 
-	 * @param number specifies the number of kind
-	 * @return the first card of the last number of a kind if currentHand contains
-	 *         number of a kind, otherwise null
+	 * @param numberOfKind number can be replaced by three or four to find 3 or 4 of
+	 *                     a kind
+	 * @return the first card of a find if 3(for numberOfAKind = 3) or 4(for
+	 *         numberOfAKind = 4) of a kind exists, otherwise null
 	 */
-	public Card containsNumberOfAKind(int number) {
-		Card currCard;
-		Card tempCard;
-		for (int i = 0; i < currentHand.size() + 1 - number; i++) {
-			currCard = currentHand.get(i);
-			int numberOfSameKind = 1;
-			for (int j = i + 1; j < currentHand.size(); j++) {
-				tempCard = currentHand.get(j);
-				if (currCard.getCardValue().compareTo(tempCard.getCardValue()) == 0) {
-					numberOfSameKind++;
-				}
-			}
-			if (numberOfSameKind == number) {
-				return currCard;
+	public Card containsThreeOrFourOfAKind(int numberOfAKind) {
+		List<CardValue> cardValueList = currentHand.stream()
+				.map(card -> card.getCardValue()).collect(Collectors.toList());
+		// remove duplicates
+		List<CardValue> listWithoutDuplicates = cardValueList.stream().distinct()
+				.collect(Collectors.toList());
+
+		for (CardValue value : listWithoutDuplicates) {
+			if (cardValueList.stream()
+					.filter(cardValue -> value.compareTo(cardValue) == 0)
+					.collect(Collectors.toList()).size() == numberOfAKind) {
+
+				return currentHand.stream()
+						.filter(card -> card.getCardValue().compareTo(value) == 0)
+						.collect(Collectors.toList()).get(0);
 			}
 		}
 		return null;
@@ -141,9 +148,39 @@ public class Hand {
 		return true;
 	}
 
-	public boolean containsTwoPair() {
-		// TODO Auto-generated method stub
-		return false;
+	/**
+	 * This methods determines if a currentHand contains one or two pairs. If it
+	 * founds one pair it adds the first of those two cards to a list. This method
+	 * will only add a card if there exists exactly two cards in currentHand with
+	 * the same card value. This method can be used to find a single pair or two
+	 * pairs. If the size of the returned List is 2, currentHand contains two pairs.
+	 * If the size is 1, currentHand contains exactly one pair.
+	 * 
+	 * Note: This method also finds a pair that is part of a full house
+	 * 
+	 * @return A List of distinct(with respect to CardValue) cards where every card
+	 *         represents a pair in currentHand
+	 */
+	public List<Card> containsPair() {
+		List<Card> pairCards = new ArrayList<Card>();
+		List<CardValue> cardValueList = currentHand.stream()
+				.map(card -> card.getCardValue()).collect(Collectors.toList());
+		// remove duplicates
+		List<CardValue> listWithoutDuplicates = cardValueList.stream().distinct()
+				.collect(Collectors.toList());
+
+		for (CardValue value : listWithoutDuplicates) {
+			if (cardValueList.stream()
+					.filter(cardValue -> value.compareTo(cardValue) == 0)
+					.collect(Collectors.toList()).size() == 2) {
+
+				pairCards.add(currentHand.stream()
+						.filter(card -> card.getCardValue().compareTo(value) == 0)
+						.collect(Collectors.toList()).get(0));
+			}
+		}
+
+		return pairCards;
 	}
 
 }
