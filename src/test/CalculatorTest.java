@@ -49,17 +49,19 @@ public class CalculatorTest {
 				new Card(SPADES, THREE), new Card(DIAMONDS, EIGHT),
 				new Card(SPADES, NINE));
 		calculator = new Calculator(hand1, hand2);
-		
-		List<CardValue> cardValueshand1 = calculator.mapToCardValue(hand1.getCurrentHand());
-		List<CardValue> cardValueshand2 = calculator.mapToCardValue(hand2.getCurrentHand());
-		
+
+		List<CardValue> cardValueshand1 = calculator
+				.mapToCardValue(hand1.getCurrentHand());
+		List<CardValue> cardValueshand2 = calculator
+				.mapToCardValue(hand2.getCurrentHand());
+
 		List<CardValue> withoutDuplicates1 = calculator.removeDuplicates(cardValueshand1);
 		List<CardValue> withoutDuplicates2 = calculator.removeDuplicates(cardValueshand2);
 
-		assertEquals("Hand 2 wins with HIGH_CARD", calculator.compareHighCardsList(withoutDuplicates1, withoutDuplicates2));
-		
+		assertEquals("Hand 2 wins with HIGH_CARD",
+				calculator.compareHighCardsList(withoutDuplicates1, withoutDuplicates2));
 	}
-	
+
 	@Test
 	public void compareHighCardsListTest_hand1HighCardKing_hand2_HighCardQueen() {
 		hand1 = new Hand(new Card(HEARTS, JACK), new Card(SPADES, FOUR),
@@ -68,15 +70,80 @@ public class CalculatorTest {
 				new Card(SPADES, THREE), new Card(DIAMONDS, EIGHT),
 				new Card(SPADES, NINE));
 		calculator = new Calculator(hand1, hand2);
-		
-		List<CardValue> cardValueshand1 = calculator.mapToCardValue(hand1.getCurrentHand());
-		List<CardValue> cardValueshand2 = calculator.mapToCardValue(hand2.getCurrentHand());
-		
+
+		List<CardValue> cardValueshand1 = calculator
+				.mapToCardValue(hand1.getCurrentHand());
+		List<CardValue> cardValueshand2 = calculator
+				.mapToCardValue(hand2.getCurrentHand());
+
 		List<CardValue> withoutDuplicates1 = calculator.removeDuplicates(cardValueshand1);
 		List<CardValue> withoutDuplicates2 = calculator.removeDuplicates(cardValueshand2);
 
-		assertEquals("Hand 1 wins with HIGH_CARD", calculator.compareHighCardsList(withoutDuplicates1, withoutDuplicates2));
-		
+		assertEquals("Hand 1 wins with HIGH_CARD",
+				calculator.compareHighCardsList(withoutDuplicates1, withoutDuplicates2));
+
 	}
+
+	@Test
+	public void compareHighCardsListTest_SplitPot() {
+		hand1 = new Hand(new Card(HEARTS, JACK), new Card(SPADES, FOUR),
+				new Card(CLUBS, TEN), new Card(HEARTS, KING), new Card(HEARTS, SIX));
+		hand2 = new Hand(new Card(SPADES, JACK), new Card(HEARTS, FOUR),
+				new Card(SPADES, TEN), new Card(DIAMONDS, KING), new Card(SPADES, SIX));
+		calculator = new Calculator(hand1, hand2);
+
+		List<CardValue> cardValueshand1 = calculator
+				.mapToCardValue(hand1.getCurrentHand());
+		List<CardValue> cardValueshand2 = calculator
+				.mapToCardValue(hand2.getCurrentHand());
+
+		List<CardValue> withoutDuplicates1 = calculator.removeDuplicates(cardValueshand1);
+		List<CardValue> withoutDuplicates2 = calculator.removeDuplicates(cardValueshand2);
+
+		assertEquals("Split Pot",
+				calculator.compareHighCardsList(withoutDuplicates1, withoutDuplicates2));
+
+	}
+
+//	**************************************************************************************
+
+	@Test
+	public void compareHighestCardOuterRankingTest_TwoPairAndHighCardHand2() {
+		hand1 = new Hand(new Card(HEARTS, JACK), new Card(SPADES, FOUR),
+				new Card(CLUBS, JACK), new Card(HEARTS, FOUR), new Card(HEARTS, SIX));
+		hand2 = new Hand(new Card(CLUBS, JACK), new Card(DIAMONDS, FOUR),
+				new Card(SPADES, JACK), new Card(CLUBS, FOUR), new Card(SPADES, TEN));
+
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 2 wins with TWO_PAIR",
+				calculator.compareHighestCardOuterRanking());
+	}
+	
+	@Test
+	public void compareHighestCardOuterRankingTest_TwoPairAndHighCardHand1() {
+		hand1 = new Hand(new Card(HEARTS, TWO), new Card(SPADES, FOUR),
+				new Card(CLUBS, TWO), new Card(HEARTS, FOUR), new Card(HEARTS, JACK));
+		hand2 = new Hand(new Card(CLUBS, TWO), new Card(DIAMONDS, FOUR),
+				new Card(SPADES, TWO), new Card(CLUBS, FOUR), new Card(SPADES, TEN));
+
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 1 wins with TWO_PAIR",
+				calculator.compareHighestCardOuterRanking());
+	}
+	
+	@Test
+	public void compareHighestCardOuterRankingTest_TwoPairAndHighCardSplitPot() {
+		hand1 = new Hand(new Card(HEARTS, TWO), new Card(SPADES, SEVEN),
+				new Card(CLUBS, TWO), new Card(HEARTS, SEVEN), new Card(HEARTS, ACE));
+		hand2 = new Hand(new Card(CLUBS, TWO), new Card(DIAMONDS, SEVEN),
+				new Card(SPADES, TWO), new Card(CLUBS, SEVEN), new Card(SPADES, ACE));
+
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Split Pot",
+				calculator.compareHighestCardOuterRanking());
+	}
+	
+//	**************************************************************************************
+
 
 }
