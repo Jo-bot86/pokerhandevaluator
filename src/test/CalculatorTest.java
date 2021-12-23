@@ -113,37 +113,122 @@ public class CalculatorTest {
 				new Card(CLUBS, JACK), new Card(HEARTS, FOUR), new Card(HEARTS, SIX));
 		hand2 = new Hand(new Card(CLUBS, JACK), new Card(DIAMONDS, FOUR),
 				new Card(SPADES, JACK), new Card(CLUBS, FOUR), new Card(SPADES, TEN));
-
 		calculator = new Calculator(hand1, hand2);
 		assertEquals("Hand 2 wins with TWO_PAIR",
 				calculator.compareHighestCardOuterRanking());
 	}
-	
+
 	@Test
 	public void compareHighestCardOuterRankingTest_TwoPairAndHighCardHand1() {
 		hand1 = new Hand(new Card(HEARTS, TWO), new Card(SPADES, FOUR),
 				new Card(CLUBS, TWO), new Card(HEARTS, FOUR), new Card(HEARTS, JACK));
 		hand2 = new Hand(new Card(CLUBS, TWO), new Card(DIAMONDS, FOUR),
 				new Card(SPADES, TWO), new Card(CLUBS, FOUR), new Card(SPADES, TEN));
-
 		calculator = new Calculator(hand1, hand2);
 		assertEquals("Hand 1 wins with TWO_PAIR",
 				calculator.compareHighestCardOuterRanking());
 	}
-	
+
 	@Test
 	public void compareHighestCardOuterRankingTest_TwoPairAndHighCardSplitPot() {
 		hand1 = new Hand(new Card(HEARTS, TWO), new Card(SPADES, SEVEN),
 				new Card(CLUBS, TWO), new Card(HEARTS, SEVEN), new Card(HEARTS, ACE));
 		hand2 = new Hand(new Card(CLUBS, TWO), new Card(DIAMONDS, SEVEN),
 				new Card(SPADES, TWO), new Card(CLUBS, SEVEN), new Card(SPADES, ACE));
-
 		calculator = new Calculator(hand1, hand2);
-		assertEquals("Split Pot",
-				calculator.compareHighestCardOuterRanking());
+		assertEquals("Split Pot", calculator.compareHighestCardOuterRanking());
 	}
-	
+
 //	**************************************************************************************
 
+	@Test
+	public void comparePairTest_hand1Six_hand2Seven() {
+		hand1 = new Hand(new Card(HEARTS, ACE), new Card(SPADES, SIX),
+				new Card(CLUBS, KING), new Card(HEARTS, SIX), new Card(HEARTS, JACK));
+		hand2 = new Hand(new Card(CLUBS, TWO), new Card(DIAMONDS, SEVEN),
+				new Card(SPADES, QUEEN), new Card(CLUBS, SEVEN), new Card(SPADES, ACE));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 2 wins with PAIR", calculator.comparePair());
+	}
+	
+	@Test
+	public void comparePairTest_hand1Jack_hand2Seven() {
+		hand1 = new Hand(new Card(HEARTS, ACE), new Card(SPADES, JACK),
+				new Card(CLUBS, KING), new Card(HEARTS, SIX), new Card(HEARTS, JACK));
+		hand2 = new Hand(new Card(CLUBS, TWO), new Card(DIAMONDS, SEVEN),
+				new Card(SPADES, QUEEN), new Card(CLUBS, SEVEN), new Card(SPADES, ACE));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 1 wins with PAIR", calculator.comparePair());
+	}
+	
+	@Test
+	public void comparePairTest_samePair_hand1HighCardTen_hand2HighCardKing() {
+		hand1 = new Hand(new Card(HEARTS, TWO), new Card(SPADES, SEVEN),
+				new Card(CLUBS, EIGHT), new Card(HEARTS, TEN), new Card(HEARTS, SEVEN));
+		hand2 = new Hand(new Card(CLUBS, TWO), new Card(DIAMONDS, SEVEN),
+				new Card(SPADES, QUEEN), new Card(CLUBS, SEVEN), new Card(SPADES, KING));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 2 wins with PAIR", calculator.comparePair());
+	}
+	
+	@Test
+	public void comparePairTest_samePair_hand1HighCardAce_hand2HighCardKing() {
+		hand1 = new Hand(new Card(HEARTS, TWO), new Card(SPADES, SEVEN),
+				new Card(CLUBS, EIGHT), new Card(HEARTS, ACE), new Card(HEARTS, SEVEN));
+		hand2 = new Hand(new Card(CLUBS, TWO), new Card(DIAMONDS, SEVEN),
+				new Card(SPADES, QUEEN), new Card(CLUBS, SEVEN), new Card(SPADES, KING));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 1 wins with PAIR", calculator.comparePair());
+	}
+	
+	@Test
+	public void comparePairTest_samePair_hand1HighCardAceKing_hand2HighCardAceJack() {
+		hand1 = new Hand(new Card(HEARTS, KING), new Card(SPADES, SEVEN),
+				new Card(CLUBS, EIGHT), new Card(HEARTS, ACE), new Card(HEARTS, SEVEN));
+		hand2 = new Hand(new Card(CLUBS, TWO), new Card(DIAMONDS, SEVEN),
+				new Card(SPADES, JACK), new Card(CLUBS, SEVEN), new Card(SPADES, ACE));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 1 wins with PAIR", calculator.comparePair());
+	}
+	
+	@Test
+	public void comparePairTest_samePair_hand1HighCardAceThree_hand2HighCardAceTen() {
+		hand1 = new Hand(new Card(HEARTS, THREE), new Card(SPADES, SEVEN),
+				new Card(HEARTS, TWO), new Card(HEARTS, ACE), new Card(HEARTS, SEVEN));
+		hand2 = new Hand(new Card(CLUBS, TWO), new Card(DIAMONDS, SEVEN),
+				new Card(SPADES, TEN), new Card(CLUBS, SEVEN), new Card(SPADES, ACE));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 2 wins with PAIR", calculator.comparePair());
+	}
+	
+	@Test
+	public void comparePairTest_samePair_hand1HighCardAceKingFour_hand2HighCardAceKingJack() {
+		hand1 = new Hand(new Card(HEARTS, KING), new Card(SPADES, SEVEN),
+				new Card(HEARTS, FOUR), new Card(HEARTS, ACE), new Card(HEARTS, SEVEN));
+		hand2 = new Hand(new Card(CLUBS, JACK), new Card(DIAMONDS, SEVEN),
+				new Card(SPADES, KING), new Card(CLUBS, SEVEN), new Card(SPADES, ACE));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 2 wins with PAIR", calculator.comparePair());
+	}
+	
+	@Test
+	public void comparePairTest_samePair_hand1HighCardAceKingQueen_hand2HighCardAceKingJack() {
+		hand1 = new Hand(new Card(HEARTS, KING), new Card(SPADES, SEVEN),
+				new Card(HEARTS, QUEEN), new Card(HEARTS, ACE), new Card(HEARTS, SEVEN));
+		hand2 = new Hand(new Card(CLUBS, JACK), new Card(DIAMONDS, SEVEN),
+				new Card(SPADES, KING), new Card(CLUBS, SEVEN), new Card(SPADES, ACE));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 1 wins with PAIR", calculator.comparePair());
+	}
+	
+	@Test
+	public void comparePairTest_samePair_sameHighCards() {
+		hand1 = new Hand(new Card(HEARTS, KING), new Card(SPADES, SEVEN),
+				new Card(HEARTS, QUEEN), new Card(HEARTS, ACE), new Card(HEARTS, SEVEN));
+		hand2 = new Hand(new Card(CLUBS, QUEEN), new Card(DIAMONDS, SEVEN),
+				new Card(SPADES, KING), new Card(CLUBS, SEVEN), new Card(SPADES, ACE));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Split Pot", calculator.comparePair());
+	}
 
 }
