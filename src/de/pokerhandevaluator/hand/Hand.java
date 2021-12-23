@@ -12,13 +12,27 @@ import de.pokerhandevaluator.hand.card.Card;
 import de.pokerhandevaluator.hand.card.CardValue;
 
 /**
- * Represents a hand in a poker game.
+ * Represents a hand in a poker game. This class provides methods to determine
+ * the ranking of current hand. Most of them return a boolean like
+ * containsFullHouse. Exceptions are containsThreeOrFourOfAKind which returns a
+ * card that represents the three or four of a kind and containsPair which
+ * returns a list of cards of size 2 or 1, depending if currentHand contains <br/>2
+ * or 1 pair.<br/>Exactly the same as with containsThreeOrFourOfAKind each card of the
+ * returned list represents a pair.
  * 
  * @author Josef Weldemariam
  *
  */
 public class Hand {
+
+	/**
+	 * contains the current hand, that is a list of five card objects
+	 */
 	private final List<Card> currentHand;
+
+	/**
+	 * contains the hand ranking for the current hand
+	 */
 	private HandRanking currentHandRanking;
 
 	/**
@@ -88,8 +102,7 @@ public class Hand {
 	}
 
 	/**
-	 * Checks if currentHand contains a flush returns true if currentHand contains a
-	 * flush otherwise false
+	 * Checks if currentHand contains a flush
 	 * 
 	 * @return true only if currentHand contains a flush, otherwise false
 	 */
@@ -186,45 +199,47 @@ public class Hand {
 
 		return pairCards;
 	}
-	
+
 	/**
-	 * Sets the ranking for a t
+	 * Sets the ranking
+	 * 
 	 * @param hand
 	 */
 	public void setHandRanking() {
-		if(getHighestCard().getCardValue().compareTo(ACE) == 0 && containsFlush() && containsStraight()) {
+		if (getHighestCard().getCardValue().compareTo(ACE) == 0 && containsFlush()
+				&& containsStraight()) {
 			currentHandRanking = ROYAL_FLUSH;
 			return;
 		}
-		if(containsFlush() && containsStraight()) {
+		if (containsFlush() && containsStraight()) {
 			currentHandRanking = STRAIGHT_FLUSH;
 			return;
 		}
-		if(containsThreeOrFourOfAKind(4) != null) {
+		if (containsThreeOrFourOfAKind(4) != null) {
 			currentHandRanking = FOUR_OF_A_KIND;
 			return;
 		}
-		if(containsFullHouse()) {
+		if (containsFullHouse()) {
 			currentHandRanking = FULL_HOUSE;
 			return;
 		}
-		if(containsFlush()) {
+		if (containsFlush()) {
 			currentHandRanking = FLUSH;
 			return;
 		}
-		if(containsStraight()) {
+		if (containsStraight()) {
 			currentHandRanking = STRAIGHT;
 			return;
 		}
-		if(containsThreeOrFourOfAKind(3) != null) {
+		if (containsThreeOrFourOfAKind(3) != null) {
 			currentHandRanking = THREE_OF_A_KIND;
 			return;
 		}
-		if(containsPair().size() == 2) {
+		if (containsPair().size() == 2) {
 			currentHandRanking = TWO_PAIR;
 			return;
 		}
-		if(containsPair().size() == 1) {
+		if (containsPair().size() == 1) {
 			currentHandRanking = PAIR;
 			return;
 		}
