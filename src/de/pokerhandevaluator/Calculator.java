@@ -1,17 +1,13 @@
 package de.pokerhandevaluator;
 
 import static de.pokerhandevaluator.hand.HandRanking.*;
-import static de.pokerhandevaluator.hand.card.CardValue.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.EnumSelector;
-
 import de.pokerhandevaluator.hand.Hand;
-import de.pokerhandevaluator.hand.HandRanking;
 import de.pokerhandevaluator.hand.card.Card;
 import de.pokerhandevaluator.hand.card.CardValue;
 
@@ -78,7 +74,7 @@ public class Calculator {
 	public String compareHands() {
 		String winner = "";
 		if (hand1.getCurrentHandRanking().compareTo(ROYAL_FLUSH) == 0) {
-			winner = "Split Pot " + hand1.getCurrentHandRanking();
+			winner = "Split Pot";
 		}
 		if (hand1.getCurrentHandRanking().compareTo(STRAIGHT_FLUSH) == 0) {
 			winner = compareHighestCardInnerRanking();
@@ -187,7 +183,7 @@ public class Calculator {
 	}
 
 	/**
-	 * Removes all duplicate card values from List
+	 * Removes all duplicate card values from a list of card values
 	 * 
 	 * @param cardValueList a list of card values to be cleared of duplicates
 	 * @return a list of card values without duplicates
@@ -197,7 +193,8 @@ public class Calculator {
 	}
 
 	/**
-	 * Maps every card  in a list to it's card value
+	 * Maps every card in a list to it's card value
+	 * 
 	 * @param cardList list of cards to map
 	 * @return list of card values
 	 */
@@ -243,23 +240,9 @@ public class Calculator {
 				}
 			}
 		}
-		// case: 2 pairs
-		if (listWithoutDuplicates1.size() == 1) {
-			if (listWithoutDuplicates1.get(0)
-					.compareTo(listWithoutDuplicates2.get(0)) < 0) {
-				winner = "Hand 2 wins with " + hand2.getCurrentHandRanking();
-			} else if (listWithoutDuplicates1.get(0)
-					.compareTo(listWithoutDuplicates2.get(0)) > 0) {
-				winner = "Hand 1 wins with " + hand1.getCurrentHandRanking();
-			} else {
-				winner = "Split Pot " + hand1.getCurrentHandRanking();
-			}
-		}
 
-		// case: 1 pair
-		if (listWithoutDuplicates1.size() > 1) {
-			winner = compareHighCardsList(listWithoutDuplicates1, listWithoutDuplicates2);
-		}
+		winner = compareHighCardsList(listWithoutDuplicates1, listWithoutDuplicates2);
+
 		return winner;
 	}
 
@@ -280,7 +263,7 @@ public class Calculator {
 				(cardVal1, cardVal2) -> cardVal1.compareTo(cardVal2));
 		Collections.sort(listWithoutDuplicates2,
 				(cardVal1, cardVal2) -> cardVal1.compareTo(cardVal2));
-		for (int i = listWithoutDuplicates1.size()-1; i >= 0; i--) {
+		for (int i = listWithoutDuplicates1.size() - 1; i >= 0; i--) {
 			if (listWithoutDuplicates1.get(i)
 					.compareTo(listWithoutDuplicates2.get(i)) < 0) {
 				winner = "Hand 2 wins with " + hand2.getCurrentHandRanking();
@@ -294,7 +277,7 @@ public class Calculator {
 			}
 		}
 		if (winner.equals("")) {
-			winner = "Split Pot " + hand1.getCurrentHandRanking();
+			winner = "Split Pot";
 		}
 
 		return winner;
@@ -373,7 +356,7 @@ public class Calculator {
 				.compareTo(hand2.getHighestCard().getCardValue()) > 0) {
 			return "Hand 1 wins with " + hand1.getCurrentHandRanking();
 		} else {
-			return "Split Pot " + hand1.getCurrentHandRanking();
+			return "Split Pot";
 		}
 	}
 
