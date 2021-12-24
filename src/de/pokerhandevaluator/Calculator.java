@@ -352,16 +352,21 @@ public class Calculator {
 	 * hand ranking better than HIGH_CARD <br />
 	 * Example: <br />
 	 * hand 1 <br />
-	 * [(HEARTS,JACK),(DIAMONDS,JACK),(SPADES,FOUR),(DIAMONDS,FOUR),(HEARTS,THREE)]<br
+	 * [(HEARTS,NINE),(DIAMONDS,JACK),(SPADES,TEN),(DIAMONDS,EIGHT),(HEARTS,SEVEN)]<br
 	 * />
 	 * hand 2 <br />
-	 * [(HEARTS,KING),(SPADES,KING),(SPADES,ACE),(DIAMONDS,THREE),(HEARTS,THREE)]<br
+	 * [(HEARTS,ACE),(DIAMONDS,TEN),(SPADES,JACK),(DIAMONDS,QUEEN),(HEARTS,KING)]<br
 	 * />
+	 * <br/>
 	 * 
-	 * Then the methode returs "Hand 2 wins with TWO_PAIRS" because for hand1 JACK
-	 * and FOUR are part of a hand higher ranked than HIGH_CARD and for hand2 KING
-	 * and THREE. Because KING is higher rated then Jack, hand 2 wins. I.e. the ace
-	 * is not considered as a highcard
+	 * Then the method returns "Hand 2 wins with STRAIGHT" because the highest card
+	 * within the ranking STRAIGHt is for hand1 JACK and for hand2 Ace.
+	 * Because KING is higher rated then Jack, hand 2 wins.
+	 * <p>
+	 * <b>NOTE:</b><br />
+	 * This method should only be used for hands where all cards are part of a hand
+	 * ranking higher than HIGH_CARD. So only for STRAIGHT, STRAIGHT_FLUSH and Flush
+	 * </p>
 	 * 
 	 * @return a string with a message if hand1 or hand2 wins the game or whether
 	 *         there is a tie
