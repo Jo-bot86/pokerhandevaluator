@@ -334,7 +334,48 @@ public class CalculatorTest {
 	}
 	
 //	****************************************************************************************
+	// case three of a kind
+	@Test
+	public void compareThreeOrFourOfAKind_hand1Ten_hand2Four() {
+		hand1 = new Hand(new Card(HEARTS, TEN), new Card(SPADES, TEN),
+				new Card(SPADES, FOUR), new Card(DIAMONDS, TEN), new Card(HEARTS, JACK));
+		hand2 = new Hand(new Card(CLUBS, FOUR), new Card(HEARTS, FOUR),
+				new Card(DIAMONDS, FOUR), new Card(CLUBS, ACE), new Card(DIAMONDS, KING));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 1 wins with THREE_OF_A_KIND", calculator.compareThreeOrFourOfAKind(3));
+	}
 	
+	@Test
+	public void compareThreeOrFourOfAKind_hand1Jack_hand2King() {
+		hand1 = new Hand(new Card(HEARTS, THREE), new Card(SPADES, JACK),
+				new Card(SPADES, FOUR), new Card(DIAMONDS, JACK), new Card(HEARTS, JACK));
+		hand2 = new Hand(new Card(CLUBS, THREE), new Card(HEARTS, KING),
+				new Card(DIAMONDS, ACE), new Card(CLUBS, KING), new Card(DIAMONDS, KING));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 2 wins with THREE_OF_A_KIND", calculator.compareThreeOrFourOfAKind(3));
+	}
 	
+//	**********************************************************************************************
 	
+	@Test
+	public void compareThreeOrFourOfAKind_hand1Two_hand2Queen() {
+		hand1 = new Hand(new Card(HEARTS, TWO), new Card(SPADES, TWO),
+				new Card(CLUBS, TWO), new Card(DIAMONDS, TWO), new Card(HEARTS, JACK));
+		hand2 = new Hand(new Card(CLUBS, QUEEN), new Card(HEARTS, QUEEN),
+				new Card(DIAMONDS, FOUR), new Card(SPADES, QUEEN), new Card(DIAMONDS, QUEEN));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 2 wins with FOUR_OF_A_KIND", calculator.compareThreeOrFourOfAKind(4));
+	}
+	
+	@Test
+	public void compareThreeOrFourOfAKind_hand1Ten_hand2Nine() {
+		hand1 = new Hand(new Card(HEARTS, THREE), new Card(SPADES, TEN),
+				new Card(CLUBS, TEN), new Card(DIAMONDS, TEN), new Card(HEARTS, TEN));
+		hand2 = new Hand(new Card(CLUBS, NINE), new Card(HEARTS, NINE),
+				new Card(DIAMONDS, NINE), new Card(SPADES, NINE), new Card(DIAMONDS, ACE));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 1 wins with FOUR_OF_A_KIND", calculator.compareThreeOrFourOfAKind(4));
+	}
+	
+//	***********************************************************************************************
 }
