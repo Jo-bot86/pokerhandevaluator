@@ -511,5 +511,37 @@ public class CalculatorTest {
 		assertEquals("Split Pot", calculator.compareFlush());
 	}
 	
-
+//	******************************************************************************************
+	
+	@Test
+	public void compareFullHouseTest_hand1TenSix_hand2JackSeven() {
+		hand1 = new Hand(new Card(HEARTS, TEN), new Card(CLUBS, SIX),
+				new Card(HEARTS, SIX), new Card(SPADES, TEN), new Card(DIAMONDS, TEN));
+		hand2 = new Hand(new Card(HEARTS, SEVEN), new Card(SPADES, JACK),
+				new Card(DIAMONDS, JACK), new Card(HEARTS, JACK), new Card(CLUBS, SEVEN));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 2 wins with FULL_HOUSE", calculator.compareFullHouse());
+	}
+	
+	@Test
+	public void compareFullHouseTest_hand1JackSix_hand2TenSeven() {
+		hand1 = new Hand(new Card(HEARTS, JACK), new Card(CLUBS, SIX),
+				new Card(HEARTS, SIX), new Card(SPADES, JACK), new Card(DIAMONDS, JACK));
+		hand2 = new Hand(new Card(HEARTS, SEVEN), new Card(SPADES, TEN),
+				new Card(DIAMONDS, TEN), new Card(HEARTS, TEN), new Card(CLUBS, SEVEN));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 1 wins with FULL_HOUSE", calculator.compareFullHouse());
+	}
+	
+	@Test
+	public void compareFullHouseTest_hand1SevenJack_hand2EightTen() {
+		hand1 = new Hand(new Card(HEARTS, SEVEN), new Card(CLUBS, JACK),
+				new Card(HEARTS, JACK), new Card(SPADES, SEVEN), new Card(DIAMONDS, SEVEN));
+		hand2 = new Hand(new Card(HEARTS, TEN), new Card(SPADES, EIGHT),
+				new Card(DIAMONDS, EIGHT), new Card(HEARTS, EIGHT), new Card(CLUBS, TEN));
+		calculator = new Calculator(hand1, hand2);
+		assertEquals("Hand 2 wins with FULL_HOUSE", calculator.compareFullHouse());
+	}
+	
+//	*******************************************************************************************
 }
