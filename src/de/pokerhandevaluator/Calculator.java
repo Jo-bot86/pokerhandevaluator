@@ -301,9 +301,6 @@ public class Calculator {
 		Collections.sort(sortedHand2,
 				(card1, card2) -> card1.getCardValue().compareTo(card2.getCardValue()));
 		for (int i = sortedHand1.size() - 1; i >= 0; i--) {
-			System.out.println(i + ": " + sortedHand1.get(i));
-			System.out.println(i + ": " + sortedHand2.get(i));
-
 			if (sortedHand1.get(i).getCardValue()
 					.compareTo(sortedHand2.get(i).getCardValue()) == 0) {
 				continue;
@@ -315,6 +312,10 @@ public class Calculator {
 				winner = "Hand 1 wins with " + hand1.getCurrentHandRanking();
 				break;
 			}
+		}
+		
+		if(winner.equals("")) {
+			winner = "Split Pot";
 		}
 		return winner;
 	}
