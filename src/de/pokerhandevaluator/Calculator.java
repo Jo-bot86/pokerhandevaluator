@@ -115,10 +115,8 @@ public class Calculator {
 	public String compareHighCards() {
 		String winner = "";
 		// map every card to it's card value
-		List<CardValue> cardValueList1 = hand1.getCurrentHand().stream()
-				.map(card -> card.getCardValue()).collect(Collectors.toList());
-		List<CardValue> cardValueList2 = hand2.getCurrentHand().stream()
-				.map(card -> card.getCardValue()).collect(Collectors.toList());
+		List<CardValue> cardValueList1 = mapToCardValue(hand1.getCurrentHand());
+		List<CardValue> cardValueList2 = mapToCardValue(hand2.getCurrentHand());
 
 		winner = compareHighCardsList(cardValueList1, cardValueList2);
 		return winner;
