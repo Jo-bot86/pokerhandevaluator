@@ -300,16 +300,20 @@ public class Calculator {
 				(card1, card2) -> card1.getCardValue().compareTo(card2.getCardValue()));
 		Collections.sort(sortedHand2,
 				(card1, card2) -> card1.getCardValue().compareTo(card2.getCardValue()));
-
 		for (int i = sortedHand1.size() - 1; i >= 0; i--) {
+			System.out.println(i + ": " + sortedHand1.get(i));
+			System.out.println(i + ": " + sortedHand2.get(i));
+
 			if (sortedHand1.get(i).getCardValue()
 					.compareTo(sortedHand2.get(i).getCardValue()) == 0) {
 				continue;
 			} else if (sortedHand1.get(i).getCardValue()
 					.compareTo(sortedHand2.get(i).getCardValue()) < 0) {
 				winner = "Hand 2 wins with " + hand2.getCurrentHandRanking();
+				break;
 			} else {
 				winner = "Hand 1 wins with " + hand1.getCurrentHandRanking();
+				break;
 			}
 		}
 		return winner;
