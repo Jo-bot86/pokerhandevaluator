@@ -365,7 +365,7 @@ public class Calculator {
 	 * <p>
 	 * <b>NOTE:</b><br />
 	 * This method should only be used for hands where all cards are part of a hand
-	 * ranking higher than HIGH_CARD. So only for STRAIGHT, STRAIGHT_FLUSH and Flush
+	 * ranking higher than HIGH_CARD. So only for STRAIGHT or STRAIGHT_FLUSH 
 	 * </p>
 	 * 
 	 * @return a string with a message if hand1 or hand2 wins the game or whether
