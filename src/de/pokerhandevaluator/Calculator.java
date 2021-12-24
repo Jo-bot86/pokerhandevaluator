@@ -349,7 +349,19 @@ public class Calculator {
 
 	/**
 	 * Determines the winner of two hands where all cards of a hand are part of a
-	 * hand ranking
+	 * hand ranking better than HIGH_CARD <br />
+	 * Example: <br />
+	 * hand 1 <br />
+	 * [(HEARTS,JACK),(DIAMONDS,JACK),(SPADES,FOUR),(DIAMONDS,FOUR),(HEARTS,THREE)]<br
+	 * />
+	 * hand 2 <br />
+	 * [(HEARTS,KING),(SPADES,KING),(SPADES,ACE),(DIAMONDS,THREE),(HEARTS,THREE)]<br
+	 * />
+	 * 
+	 * Then the methode returs "Hand 2 wins with TWO_PAIRS" because for hand1 JACK
+	 * and FOUR are part of a hand higher ranked than HIGH_CARD and for hand2 KING
+	 * and THREE. Because KING is higher rated then Jack, hand 2 wins. I.e. the ace
+	 * is not considered as a highcard
 	 * 
 	 * @return a string with a message if hand1 or hand2 wins the game or whether
 	 *         there is a tie
