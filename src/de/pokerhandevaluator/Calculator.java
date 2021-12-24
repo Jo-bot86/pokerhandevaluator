@@ -136,12 +136,10 @@ public class Calculator {
 		List<Card> pairCardHand2 = hand2.containsPair();
 		if (pairCardHand1.get(0).getCardValue()
 				.compareTo(pairCardHand2.get(0).getCardValue()) < 0) {
-			winner = "Hand 2 wins with " + hand2.getCurrentHandRanking() + " of "
-					+ pairCardHand2.get(0).getCardValue();
+			winner = "Hand 2 wins with " + hand2.getCurrentHandRanking();
 		} else if (pairCardHand1.get(0).getCardValue()
 				.compareTo(pairCardHand2.get(0).getCardValue()) > 0) {
-			winner = "Hand 1 wins with " + hand1.getCurrentHandRanking() + " of "
-					+ pairCardHand1.get(0).getCardValue();
+			winner = "Hand 1 wins with " + hand1.getCurrentHandRanking();
 		} else {
 			winner = compareHighestCardOuterRanking();
 		}
@@ -170,13 +168,11 @@ public class Calculator {
 			}
 			if (twoPairCardsHand1.get(i).getCardValue()
 					.compareTo(twoPairCardsHand2.get(i).getCardValue()) < 0) {
-				winner = "Hand 2 wins with " + hand2.getCurrentHandRanking() + " of "
-						+ twoPairCardsHand2.get(i).getCardValue();
+				winner = "Hand 2 wins with " + hand2.getCurrentHandRanking();
 			}
 			if (twoPairCardsHand1.get(i).getCardValue()
 					.compareTo(twoPairCardsHand2.get(i).getCardValue()) > 0) {
-				winner = "Hand 1 wins with " + hand1.getCurrentHandRanking() + " of "
-						+ twoPairCardsHand1.get(i).getCardValue();
+				winner = "Hand 1 wins with " + hand1.getCurrentHandRanking();
 			}
 		}
 		// check the last card
@@ -236,8 +232,12 @@ public class Calculator {
 				if (pairCards1.get(j).getCardValue()
 						.compareTo(listWithoutDuplicates1.get(i)) == 0) {
 					listWithoutDuplicates1.remove(i);
-
 				}
+			}
+		}
+
+		for (int i = 0; i < listWithoutDuplicates2.size(); i++) {
+			for (int j = 0; j < pairCards2.size(); j++) {
 				if (pairCards2.get(j).getCardValue()
 						.compareTo(listWithoutDuplicates2.get(i)) == 0) {
 					listWithoutDuplicates2.remove(i);
@@ -270,13 +270,11 @@ public class Calculator {
 		for (int i = listWithoutDuplicates1.size() - 1; i >= 0; i--) {
 			if (listWithoutDuplicates1.get(i)
 					.compareTo(listWithoutDuplicates2.get(i)) < 0) {
-				winner = "Hand 2 wins with " + hand2.getCurrentHandRanking() + " of "
-						+ listWithoutDuplicates2.get(i);
+				winner = "Hand 2 wins with " + hand2.getCurrentHandRanking();
 				break;
 			} else if (listWithoutDuplicates1.get(i)
 					.compareTo(listWithoutDuplicates2.get(i)) > 0) {
-				winner = "Hand 1 wins with " + hand1.getCurrentHandRanking() + " of "
-						+ listWithoutDuplicates1.get(i);
+				winner = "Hand 1 wins with " + hand1.getCurrentHandRanking();
 				break;
 			} else {
 				continue;
@@ -309,11 +307,9 @@ public class Calculator {
 				continue;
 			} else if (sortedHand1.get(i).getCardValue()
 					.compareTo(sortedHand2.get(i).getCardValue()) < 0) {
-				winner = "Hand 2 wins with " + hand2.getCurrentHandRanking() + " of "
-						+ sortedHand2.get(i).getCardValue();
+				winner = "Hand 2 wins with " + hand2.getCurrentHandRanking();
 			} else {
-				winner = "Hand 1 wins with " + hand1.getCurrentHandRanking() + " of "
-						+ sortedHand1.get(i).getCardValue();
+				winner = "Hand 1 wins with " + hand1.getCurrentHandRanking();
 			}
 		}
 		return winner;
@@ -329,11 +325,9 @@ public class Calculator {
 		CardValue valueHand1 = hand1.containsThreeOrFourOfAKind(3).getCardValue();
 		CardValue valueHand2 = hand2.containsThreeOrFourOfAKind(3).getCardValue();
 		if (valueHand1.compareTo(valueHand2) < 0) {
-			return "Hand 2 wins with " + hand2.getCurrentHandRanking() + " of "
-					+ valueHand2;
+			return "Hand 2 wins with " + hand2.getCurrentHandRanking();
 		} else {
-			return "Hand 1 wins with " + hand1.getCurrentHandRanking() + " of "
-					+ valueHand1;
+			return "Hand 1 wins with " + hand1.getCurrentHandRanking();
 		}
 	}
 
@@ -347,11 +341,9 @@ public class Calculator {
 		CardValue valueHand1 = hand1.containsThreeOrFourOfAKind(number).getCardValue();
 		CardValue valueHand2 = hand2.containsThreeOrFourOfAKind(number).getCardValue();
 		if (valueHand1.compareTo(valueHand2) < 0) {
-			return "Hand 2 wins with " + hand2.getCurrentHandRanking() + " of "
-					+ valueHand2;
+			return "Hand 2 wins with " + hand2.getCurrentHandRanking();
 		} else {
-			return "Hand 1 wins with " + hand1.getCurrentHandRanking() + " of "
-					+ valueHand1;
+			return "Hand 1 wins with " + hand1.getCurrentHandRanking();
 		}
 	}
 
@@ -367,11 +359,9 @@ public class Calculator {
 		CardValue valueHand2 = hand2.getHighestCard().getCardValue();
 
 		if (valueHand1.compareTo(valueHand2) < 0) {
-			return "Hand 2 wins with " + hand2.getCurrentHandRanking() + " of "
-					+ valueHand2;
+			return "Hand 2 wins with " + hand2.getCurrentHandRanking();
 		} else if (valueHand1.compareTo(valueHand2) > 0) {
-			return "Hand 1 wins with " + hand1.getCurrentHandRanking() + " of "
-					+ valueHand1;
+			return "Hand 1 wins with " + hand1.getCurrentHandRanking();
 		} else {
 			return "Split Pot";
 		}
