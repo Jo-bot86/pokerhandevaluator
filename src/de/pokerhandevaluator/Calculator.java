@@ -66,7 +66,8 @@ public class Calculator {
 	/**
 	 * Depending on the HandRanking of hand1 (and hand2) different methods are
 	 * invoked to determine a winner. In case of a royal flush then the message
-	 * contains that it is a split pot
+	 * contains that it is a split pot. This should only be used for two hands with
+	 * the same hand ranking. E.g. hand1 TWO_PAIR and hand2 TWO_PAIR.
 	 * 
 	 * @return a string with a message if hand1 or hand2 wins the game or if it is a
 	 *         split pot
