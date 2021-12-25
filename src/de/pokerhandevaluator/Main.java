@@ -1,14 +1,8 @@
 package de.pokerhandevaluator;
 
-import static de.pokerhandevaluator.hand.card.CardSuit.CLUBS;
-import static de.pokerhandevaluator.hand.card.CardSuit.DIAMONDS;
-import static de.pokerhandevaluator.hand.card.CardSuit.HEARTS;
-import static de.pokerhandevaluator.hand.card.CardSuit.SPADES;
-import static de.pokerhandevaluator.hand.card.CardValue.ACE;
-import static de.pokerhandevaluator.hand.card.CardValue.FOUR;
-import static de.pokerhandevaluator.hand.card.CardValue.JACK;
-import static de.pokerhandevaluator.hand.card.CardValue.KING;
-import static de.pokerhandevaluator.hand.card.CardValue.SEVEN;
+import static de.pokerhandevaluator.hand.card.CardSuit.*;
+import static de.pokerhandevaluator.hand.card.CardValue.*;
+
 
 import de.pokerhandevaluator.hand.Hand;
 import de.pokerhandevaluator.hand.card.Card;
@@ -37,17 +31,19 @@ public class Main {
 		final Hand hand2Random = dealer.getHands().get(1);
 
 		Calculator calculator1 = new Calculator(hand1Random, hand2Random);
-		Calculator calculator2 = new Calculator(HAND1, HAND2);
 
 		System.out.println("Calculator 1");
-		System.out.println("\nHand 1: " + HAND1);
-		System.out.println("\nHand 2: " + HAND2);
+		System.out.println("\nHand 1: " + hand1Random);
+		System.out.println("\nHand 2: " + hand2Random);
 
 		System.out.println("\n" + calculator1.calculate());
 
+		
+		Calculator calculator2 = new Calculator(HAND1, HAND2);
+
 		System.out.println("\nCalculator 2");
-		System.out.println("\nHand 1: " + hand1Random);
-		System.out.println("\nHand 2: " + hand2Random);
+		System.out.println("\nHand 1: " + HAND1);
+		System.out.println("\nHand 2: " + HAND2);
 
 		System.out.println("\n" + calculator2.calculate());
 	}
