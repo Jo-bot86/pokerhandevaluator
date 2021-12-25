@@ -16,9 +16,11 @@ import de.pokerhandevaluator.hand.card.CardValue;
  * the ranking of current hand. Most of them return a boolean like
  * containsFullHouse. Exceptions are containsThreeOrFourOfAKind which returns a
  * card that represents the three or four of a kind and containsPair which
- * returns a list of cards of size 2 or 1, depending if currentHand contains <br/>2
- * or 1 pair.<br/>Exactly the same as with containsThreeOrFourOfAKind each card of the
- * returned list represents a pair.
+ * returns a list of cards of size 2 or 1, depending if currentHand contains
+ * <br/>
+ * 2 or 1 pair.<br/>
+ * Exactly the same as with containsThreeOrFourOfAKind each card of the returned
+ * list represents a pair.
  * 
  * @author Josef Weldemariam
  *
@@ -244,6 +246,11 @@ public class Hand {
 			return;
 		}
 		currentHandRanking = HIGH_CARD;
+	}
+
+	@Override
+	public String toString() {
+		return currentHand.toString();
 	}
 
 }
